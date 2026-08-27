@@ -1,45 +1,83 @@
-❤	yêu
-👍	thích
-😍	cười
-😊	cười
-😘	cười
-🥰	cười
-😁	cười
-😤	tức
-👌	thích
-⭐	thích
-🌟	thích
-♥	yêu
-☺	cười
-😂	cười
-😀	cười
-💕	yêu
-😗	thích
-🤗	cười
-😉	cười
-😃	cười
-👏	chúc mừng
-😄	cười
-😋	cười
-🤩	cười
-🙂	cười
-🤣	cười
-👎	tệ
-😆	cười
-💖	yêu
-😡	giận dữ
-😎	cười
-😚	thích
-💚	yêu
-😙	thích
-💙	yêu
-💛	yêu
-😓	buồn
-😢	khóc
-😭	khóc ròng
-☹	buồn
-😫	mệt mỏi
-💗	yêu
-🖤	yêu
-😣	giận dữ
-🧡	yêu
+# ============================================================
+# TỪ ĐIỂN EMOJI -> CẢM XÚC - Bài toán Sentiment Analysis ITviec
+# Định dạng: <emoji><TAB><từ cảm xúc>
+# Cập nhật: 2026-08-27
+# ============================================================
+
+# --- TÍCH CỰC: Yêu thích, vui vẻ ---
+❤	yêu thích
+♥	yêu thích
+💕	yêu thích
+💗	yêu thích
+💖	yêu thích
+💚	yêu thích
+💙	yêu thích
+💛	yêu thích
+🧡	yêu thích
+🖤	yêu thích
+😊	vui vẻ hài lòng
+☺	vui vẻ hài lòng
+😀	vui vẻ hài lòng
+😁	vui vẻ hài lòng
+😄	vui vẻ hài lòng
+😃	vui vẻ hài lòng
+😆	vui vẻ hài lòng
+😋	vui vẻ hài lòng
+🙂	vui vẻ hài lòng
+😂	cười vui thích thú
+🤣	cười vui thích thú
+😉	hài hước thích thú
+😘	yêu mến trìu mến
+😗	yêu mến trìu mến
+😚	yêu mến trìu mến
+😙	yêu mến trìu mến
+🥰	yêu thích mê
+😍	mê thích ấn tượng
+🤩	ấn tượng xuất sắc tuyệt vời
+😎	tự tin hài lòng ngầu
+🤗	thân thiện ấm áp
+
+# --- TÍCH CỰC: Khen ngợi, chúc mừng ---
+👍	tốt thích hài lòng
+👌	hoàn hảo ổn tốt
+👏	khen ngợi chúc mừng
+🙌	tuyệt vời xuất sắc
+🎉	vui mừng chúc mừng
+🎊	ăn mừng chúc mừng
+⭐	tốt tích cực
+🌟	xuất sắc nổi bật
+💪	mạnh mẽ quyết tâm
+🔥	xuất sắc ấn tượng nổi bật
+🚀	phát triển tiến bộ vượt trội
+✅	đồng ý tốt chấp nhận
+💯	hoàn hảo tuyệt vời
+
+# --- TIÊU CỰC: Buồn, thất vọng ---
+😢	khóc buồn
+😭	khóc ròng rất buồn
+☹	buồn không hài lòng
+🙁	buồn không hài lòng
+😞	thất vọng buồn
+😔	buồn thất vọng
+😟	lo lắng không hài lòng
+😣	khó chịu bực bội
+😫	mệt mỏi kiệt sức
+😓	lo lắng vất vả
+
+# --- TIÊU CỰC: Tức giận, bực bội ---
+😤	tức giận bực bội
+😡	giận dữ tức giận
+🤬	rất tức giận phẫn nộ
+😠	bực bội tức giận
+
+# --- TIÊU CỰC: Không đồng ý, kém ---
+👎	không hài lòng tệ không tốt
+💀	tệ hại thất bại
+😑	bất mãn thờ ơ
+🙄	khó chịu không đồng ý
+💔	thất vọng nặng đau lòng
+
+# --- TRUNG TÍNH ---
+🤔	phân vân suy nghĩ chưa rõ
+😐	bình thường trung tính
+😶	không có gì đặc biệt

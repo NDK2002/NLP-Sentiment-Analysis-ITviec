@@ -1,328 +1,170 @@
-áp lực
-độc hại
-căng thẳng
-drama
-chán nản
-thiếu công bằng
-không rõ ràng
-sếp khó tính
+# ============================================================
+# TỪ ĐIỂN CẢM XÚC TIÊU CỰC - Bài toán Sentiment Analysis ITviec
+# Cập nhật: 2026-08-27 | Phạm vi: Đánh giá môi trường làm việc IT
+# ============================================================
+
+# --- LƯƠNG & PHÚC LỢI TIÊU CỰC ---
 lương thấp
-OT nhiều
+lương thấp hơn thị trường
+lương không cạnh tranh
+lương không xứng
+lương không tương xứng
+lương dưới thị trường
+lương không tăng
+không tăng lương
+cắt lương
+cắt thưởng
+cắt bonus
+không có thưởng
 không thưởng
 chậm lương
-ít học hỏi
-không được đào tạo
-không rõ lộ trình
-stress
-toxic
-pressured
-unfair
-unclear
-low salary
-no bonus
-delayed salary
-lack of training
-overwork
-boring
-micromanage
-underpaid
-no growth
-no support
+lương ba cọc ba đồng
+OT nhiều không lương
+OT không trả
+làm thêm giờ không lương
+phúc lợi kém
+phúc lợi ít
+không có bảo hiểm
+thiếu bảo hiểm
 
-# Bổ sung thêm từ tiêu cực
-kiệt sức
-cạnh tranh gay gắt
-phân biệt đối xử
-bất công
-thiên vị
-môi trường độc hại
-làm việc quá sức
-không được ghi nhận
+# --- QUẢN LÝ & LÃNH ĐẠO TIÊU CỰC ---
+sếp khó tính
+sếp độc đoán
+sếp không lắng nghe
+sếp thiên vị
+sếp không công bằng
+sếp không chuyên nghiệp
+sếp áp đặt
+sếp micromanage
+micromanage
+quản lý kém
+quản lý độc đoán
+quản lý không công bằng
+quản lý thiếu năng lực
 thiếu tôn trọng
-sự phân biệt
+không được tôn trọng
+không được ghi nhận
 không được tin tưởng
-thiếu minh bạch
-chính sách mập mờ
-không ổn định
-sa thải bất ngờ
-không có phúc lợi
-thiếu thiết bị
-môi trường lạnh lùng
+không lắng nghe nhân viên
+review không công bằng
+review thiên vị
+đánh giá không khách quan
+
+# --- MÔI TRƯỜNG & VĂN HÓA TIÊU CỰC ---
+toxic
+áp lực cao
+áp lực quá mức
+căng thẳng
+burnout
+kiệt sức
+làm việc quá sức
+OT triền miên
+OT vô tận
+không có work-life balance
+mất cân bằng cuộc sống
+môi trường tiêu cực
+môi trường độc hại
+drama nội bộ
+nhiều drama
+gossip
+office politics
+chính trị nội bộ
+cạnh tranh không lành mạnh
 đồng nghiệp khó chịu
-không được support
-thiếu feedback
+đồng nghiệp toxic
+bắt nạt
+không đoàn kết
+
+# --- HỌC HỎI & PHÁT TRIỂN TIÊU CỰC ---
+không có lộ trình
+không rõ lộ trình thăng tiến
+không có cơ hội phát triển
+không được đào tạo
+ít học hỏi
+công việc nhàm chán
+công việc lặp đi lặp lại
+không phát triển
+bế tắc
+không thăng tiến
+không học thêm được gì
+dead end
+không có career path
+công nghệ lỗi thời
+không tiếp cận công nghệ mới
+
+# --- CAM KẾT & TÍN NHIỆM TIÊU CỰC ---
+hứa không giữ
+nói một đằng làm một nẻo
+không minh bạch
+thông tin mập mờ
+thiếu minh bạch
+chính sách hay thay đổi
+chính sách không rõ ràng
+không nhất quán
+thay đổi thất thường
+không ổn định
+bất ổn
+
+# --- CÔNG VIỆC & QUY TRÌNH TIÊU CỰC ---
 quy trình rườm rà
 bureaucracy
-làm việc cuối tuần
-không work-life balance
-burnout
-harassment
-discrimination
-favoritism
-exploitation
-unrealistic deadlines
-poor communication
-lack of resources
-outdated technology
-hostile environment
-office politics
-backstabbing
-gossip
-blame culture
-fear-based management
-unreasonable expectations
-constant criticism
-no recognition
-dead-end job
-repetitive tasks
-meaningless work
-job insecurity
-layoffs
-downsizing
-restructuring
-budget cuts
-understaffed
-overloaded
-impossible targets
-unreachable goals
-constant surveillance
-no privacy
-trust issues
-broken promises
-false advertising
-misleading job description
-bait and switch
-no career path
-ceiling effect
-glass ceiling
-dead end
-stagnant
-outdated skills
-irrelevant experience
-wasted potential
-frustrated
-demotivated
-disillusioned
-hopeless
-trapped
-exhausted
-drained
-overwhelmed
-anxious
-depressed
-isolated
-excluded
-ignored
-undervalued
-unappreciated
-disrespected
-humiliated
-embarrassed
+quy trình không hiệu quả
+deadline vô lý
+deadline không thực tế
+áp lực deadline
+không đủ nguồn lực
+thiếu thiết bị
+công cụ lỗi thời
+thiếu hỗ trợ
+không được support
+không có feedback
+thiếu feedback
+thông tin không rõ ràng
+quá nhiều họp
+họp vô nghĩa
 
-# Bổ sung thêm từ tiêu cực khác
-thất nghiệp
-mất việc
-bị sa thải
-không an toàn
-bất ổn
-thiếu bảo hiểm
-không có hợp đồng
-làm thêm giờ không lương
-khai thác sức lao động
-áp bức
-bóc lột
-gian lận
-lừa đảo
-lạm dụng quyền lực
-quấy rối tình dục
-bắt nạt
-đe dọa
-hù dọa
-ép buộc
-cưỡng chế
-unemployment
-job loss
-fired
-terminated
-laid off
-redundant
-insecure
+# --- CẢM NHẬN CHUNG TIÊU CỰC (TIẾNG VIỆT) ---
+chán nản
+thất vọng
+không hài lòng
+bất mãn
+không hạnh phúc
+stress
+mệt mỏi
+nản lòng
+tiêu cực
+tệ
+kém
+tồi
+chán
+mất động lực
+không muốn làm nữa
+hối hận khi join
+không nên apply
+không recommend
+cần cải thiện nhiều
+nhiều thứ cần cải thiện
+
+# --- TỪ TIẾNG ANH PHỔ BIẾN TRONG CỘNG ĐỒNG IT (TIÊU CỰC) ---
+toxic culture
+poor management
+no career growth
+underpaid
+overworked
+low salary
+no bonus
+no work-life balance
+micromanagement
+unfair
+no transparency
+poor communication
+lack of recognition
+dead-end job
+no training
+outdated technology
+office politics
+harassment
+favoritism
+discrimination
+burnout
 unstable
-unprotected
-exploited
-abused
-bullied
-threatened
-coerced
-forced
-manipulated
-deceived
-cheated
-scammed
-underhanded
-shady
-corrupt
-dishonest
-unethical
-immoral
-illegal
-unsafe
-dangerous
-hazardous
-risky
-precarious
-vulnerable
-helpless
-powerless
-voiceless
-silenced
-censored
-suppressed
-oppressed
-marginalized
-sidelined
-overlooked
-forgotten
-abandoned
-betrayed
-let down
-disappointed
-misled
-misinformed
-confused
-lost
-directionless
-aimless
-purposeless
-pointless
-useless
-worthless
-incompetent
-inadequate
-insufficient
-substandard
-mediocre
-poor quality
-low standards
-unprofessional
-amateurish
-sloppy
-careless
-negligent
-irresponsible
-unreliable
-untrustworthy
-dishonest
-fake
-phony
-pretentious
-arrogant
-condescending
-patronizing
-dismissive
-rude
-impolite
-disrespectful
-inappropriate
-uncomfortable
-awkward
-embarrassing
-humiliating
-degrading
-demeaning
-insulting
-offensive
-hurtful
-painful
-devastating
-crushing
-heartbreaking
-soul-destroying
-life-draining
-energy-sapping
-motivation-killing
-spirit-breaking
-confidence-destroying
-self-esteem-damaging
-reputation-ruining
-career-ending
-future-limiting
-potential-wasting
-time-consuming
-resource-draining
-money-losing
-unprofitable
-costly
-expensive
-wasteful
-inefficient
-unproductive
-counterproductive
-destructive
-harmful
-damaging
-detrimental
-negative
-pessimistic
-cynical
-bitter
-resentful
-angry
-furious
-enraged
-livid
-seething
-boiling
-explosive
-volatile
-unstable
-unpredictable
-chaotic
-disorganized
-messy
-cluttered
-confusing
-complicated
-complex
-difficult
-challenging
-demanding
-exhausting
-tiring
-draining
-wearing
-grinding
-relentless
-endless
-never-ending
-constant
-persistent
-ongoing
-chronic
-long-term
-permanent
-irreversible
-unfixable
-hopeless
-impossible
-unachievable
-unrealistic
-impractical
-unworkable
-unviable
-unsustainable
-doomed
-failing
-broken
-damaged
-ruined
-destroyed
-finished
-over
-done
-ended
-closed
-shut down
-bankrupt
-insolvent
-failed
