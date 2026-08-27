@@ -106,3 +106,18 @@ git push origin feature/<ten-nhanh-cua-ban>
    - (Tùy chọn) Chạy `notebooks/04_sentiment_modeling_deeplearning.ipynb` để thử nghiệm mô hình Transformer (ViSoBERT).
 3. **Giai đoạn 3 (Insights & Demo):**
    - Chạy `notebooks/05_company_sentiment_insights.ipynb` để xuất biểu đồ thống kê cảm xúc và WordCloud theo từng công ty.
+
+---
+
+## 6. Bảng Theo dõi Tiến độ Hiện tại (Current Project Status)
+
+*Cập nhật lần cuối: 27/08/2026*
+
+| Hạng mục công việc | Phụ trách chính | Trạng thái | Chi tiết kết quả bàn giao |
+| :--- | :--- | :---: | :--- |
+| **1. Thiết lập dự án & Bộ từ điển** | **TV1: Hoàng Hôn** | ✅ **100% (Hoàn thành)** | Cấu trúc Repo, `requirements.txt`, bộ từ điển đầy đủ trong `data/dictionaries/` (*teencode, emojicon, positive/negative words & emoji, stopwords*). |
+| **2. Pipeline Tiền xử lý & Gán nhãn** | **TV1: Hoàng Hôn** | ✅ **100% (Hoàn thành)** | Hoàn thiện module `src/preprocessing.py`, notebook `02_text_preprocessing.ipynb`. Xuất thành công `data/processed/reviews_cleaned.xlsx` (8,417 mẫu, 23 cột, gán nhãn 3 lớp: *6,208 Positive, 1,639 Neutral, 570 Negative*). |
+| **3. Phân tích EDA & Đặc trưng TF-IDF** | **TV2: Văn Duy** | 🔄 **Đang thực hiện** | Nhận bàn giao dữ liệu sạch, thực hiện `01_data_exploration_eda.ipynb` và hoàn thiện module `src/features.py`. |
+| **4. Huấn luyện Mô hình Machine Learning** | **TV3: Duy Khang** | ⏳ **Sẵn sàng triển khai** | Chuẩn bị chạy `03_sentiment_modeling_ml.ipynb` (4 thuật toán ML, Hyperparameter Tuning và Stacking Ensemble). |
+| **5. Đánh giá, Insight & Web Demo** | **TV4: Thành Trung** | ⏳ **Sẵn sàng triển khai** | Chuẩn bị chạy `05_company_sentiment_insights.ipynb` (WordCloud công ty, Confusion Matrix) và xây dựng Web Demo (Streamlit/Gradio). |
+| **6. Báo cáo tổng hợp & Slide thuyết trình** | **TV1 & Cả nhóm** | ⏳ **Giai đoạn tiếp theo** | Soạn thảo theo mẫu đề cương `reports/final_report_outline.md`. |
