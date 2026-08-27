@@ -18,7 +18,9 @@ Dự án tập trung chuyên sâu vào bài toán **Phân tích Cảm xúc (Sent
 ### 2.1. Bản chất Bài toán & Xử lý Ghép Văn bản (Text Aggregation)
 - **Bản chất dữ liệu:** Dữ liệu gốc thu thập từ ITviec gồm 8,417 đánh giá thực tế của nhân viên và ứng viên. Mỗi đánh giá được chia thành 3 phần độc lập: `Title` (Tiêu đề), `What I liked` (Điểm thích/Khen ngợi) và `Suggestions for improvement` (Đề xuất cải thiện/Góp ý/Chê).
 - **Ý tưởng ghép trường văn bản:** Để mô hình có góc nhìn toàn diện về toàn bộ ý kiến đánh giá, ta tiến hành nối 3 trường này lại thành chuỗi văn bản hợp nhất:
-  $$\text{raw\_review\_text} = \text{Title} + \text{" . "} + \text{What I liked} + \text{" . "} + \text{Suggestions for improvement}$$
+```text
+raw_review_text = Title + " . " + What I liked + " . " + Suggestions for improvement
+```
 
 ### 2.2. Chiến lược Gán nhãn Cảm xúc Chuẩn (Ground Truth Labeling Strategy)
 Để huấn luyện các mô hình học máy có giám sát (Supervised Learning), bài toán cần một bộ nhãn chuẩn xác thực. Thay vì gán nhãn thủ công tốn kém, ta sử dụng chính điểm đánh giá số sao **`Rating` (từ 1 đến 5 sao)** do người viết review trực tiếp chấm để làm nhãn thực tế (*Ground Truth*):
@@ -29,7 +31,7 @@ Dự án tập trung chuyên sâu vào bài toán **Phân tích Cảm xúc (Sent
 | ⭐⭐⭐ (3 sao) | **`Neutral`** *(Trung tính)* | Đánh giá ở mức trung hòa, cân bằng; nội dung thường có cả điểm khen lẫn điểm chê tương đương nhau. | 1,639 | 19.47% |
 | ⭐⭐ (2 sao)<br>⭐ (1 sao) | **`Negative`** *(Tiêu cực)* | Đánh giá thể hiện sự thất vọng, bức xúc về chính sách OT, quản lý yếu kém, môi trường độc hại hoặc chế độ đãi ngộ không thỏa đáng. | 570 | 6.77% |
 
-> **Kiểm chứng tính nhất quán nhãn (Validation):** Sử dụng các từ điển cảm xúc (`positive_words`, `negative_words`, emoji) để tính toán tỷ số cảm xúc $\text{sentiment\_ratio}$ và đối chiếu với nhãn số sao nhằm kiểm định mức độ tương đồng giữa nội dung văn bản và số sao chấm.
+> **Kiểm chứng tính nhất quán nhãn (Validation):** Sử dụng các từ điển cảm xúc (`positive_words`, `negative_words`, emoji) để tính toán tỷ số cảm xúc `sentiment_ratio` và đối chiếu với nhãn số sao nhằm kiểm định mức độ tương đồng giữa nội dung văn bản và số sao chấm.
 
 ### 2.3. Thách thức đặc thù của Dữ liệu ITviec & Chiến lược Tiền xử lý Đa cấp
 - **Thách thức:** Review ngành công nghệ mang tính đặc thù rất cao:
