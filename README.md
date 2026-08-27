@@ -22,8 +22,8 @@ Dự án tập trung chuyên sâu vào bài toán **Phân tích Cảm xúc (Sent
 raw_review_text = Title + " . " + What I liked + " . " + Suggestions for improvement
 ```
 
-### 2.2. Chiến lược Gán nhãn Cảm xúc Chuẩn (Ground Truth Labeling Strategy)
-Để huấn luyện các mô hình học máy có giám sát (Supervised Learning), bài toán cần một bộ nhãn chuẩn xác thực. Thay vì gán nhãn thủ công tốn kém, ta sử dụng chính điểm đánh giá số sao **`Rating` (từ 1 đến 5 sao)** do người viết review trực tiếp chấm để làm nhãn thực tế (*Ground Truth*):
+### 2.2. Chiến lược Gán nhãn yếu từ Rating (Rating-derived Weak Labels)
+Để xây dựng bộ dữ liệu huấn luyện ban đầu, dự án dùng điểm đánh giá **`Rating` (từ 1 đến 5 sao)** do người viết review chấm để tạo nhãn yếu (*weak labels / distant supervision*). Nhãn này là đại diện gần đúng cho cảm xúc tổng thể, không phải ground truth được con người kiểm định trực tiếp từ nội dung văn bản:
 
 | Số sao (`Rating`) | Nhãn Cảm xúc (`Sentiment`) | Ý nghĩa nghiệp vụ | Số lượng mẫu | Tỷ lệ (%) |
 | :---: | :---: | :--- | :---: | :---: |
@@ -31,7 +31,7 @@ raw_review_text = Title + " . " + What I liked + " . " + Suggestions for improve
 | ⭐⭐⭐ (3 sao) | **`Neutral`** *(Trung tính)* | Đánh giá ở mức trung hòa, cân bằng; nội dung thường có cả điểm khen lẫn điểm chê tương đương nhau. | 1,639 | 19.47% |
 | ⭐⭐ (2 sao)<br>⭐ (1 sao) | **`Negative`** *(Tiêu cực)* | Đánh giá thể hiện sự thất vọng, bức xúc về chính sách OT, quản lý yếu kém, môi trường độc hại hoặc chế độ đãi ngộ không thỏa đáng. | 570 | 6.77% |
 
-> **Kiểm chứng tính nhất quán nhãn (Validation):** Sử dụng các từ điển cảm xúc (`positive_words`, `negative_words`, emoji) để tính toán tỷ số cảm xúc `sentiment_ratio` và đối chiếu với nhãn số sao nhằm kiểm định mức độ tương đồng giữa nội dung văn bản và số sao chấm.
+> **Audit tính nhất quán nhãn:** Lexicon, trường `Recommend?`, text trùng và một mẫu gán nhãn thủ công được dùng để phát hiện bất đồng với Rating. Các tín hiệu này chỉ hỗ trợ audit; chúng không biến weak labels thành ground truth.
 
 ### 2.3. Thách thức đặc thù của Dữ liệu ITviec & Chiến lược Tiền xử lý Đa cấp
 - **Thách thức:** Review ngành công nghệ mang tính đặc thù rất cao:
@@ -59,12 +59,12 @@ flowchart TD
         C5 --> C6["clean_advance_text (Từ ghép chuẩn)"]
     end
     
-    C --> D["Trích xuất Đặc trưng Hybrid (src/features.py)"]
+    C --> D["Trích xuất đặc trưng (src/features.py)"]
     
     subgraph D ["Feature Engineering"]
-        D1["TF-IDF N-gram (1-2 từ) + Sublinear TF"]
-        D2["Đặc trưng Lexicon: pos_w, neg_w, pos_e, neg_e, sentiment_ratio"]
-        D3["Kết hợp Vector: TF-IDF Features + Lexicon Features"]
+        D1["Pipeline chính: TF-IDF text-only<br>N-gram + Sublinear TF"]
+        D2["Ablation: Text + Lexicon"]
+        D3["Diagnostic riêng: điểm khía cạnh<br>không dùng cho demo text-only"]
     end
     
     D --> E["Huấn luyện & Xử lý Mất cân bằng (src/models.py)"]
@@ -86,7 +86,7 @@ flowchart TD
 ```
 
 ### 2.5. Ý tưởng Trích xuất Đặc trưng, Cân bằng Dữ liệu & Đánh giá
-1. **Đặc trưng kết hợp Hybrid (TF-IDF + Lexicon):** TF-IDF N-gram (1-2 từ) giúp bắt cụm từ ngữ cảnh (*"rất tốt", "quá tệ", "thiếu minh bạch"*), kết hợp cùng các đặc trưng số học từ điển cảm xúc (`pos_w`, `neg_w`, `sentiment_ratio`) để cung cấp thêm chỉ dấu cảm xúc mạnh mẽ cho bộ phân loại.
+1. **Pipeline NLP chính là text-only:** TF-IDF N-gram giúp bắt cụm từ ngữ cảnh (*"rất tốt", "quá tệ", "thiếu minh bạch"*) và khớp với ứng dụng chỉ nhận văn bản. Lexicon và điểm khía cạnh được đánh giá bằng ablation; không mặc định ghép vào mô hình chính nếu cross-validation không chứng minh lợi ích.
 2. **Xử lý Mất cân bằng lớp (Handling Class Imbalance):** Áp dụng trọng số lớp nghịch đảo `class_weight='balanced'` trong hàm tối ưu của mô hình để phạt nặng hơn khi đoán sai lớp thiểu số (Negative và Neutral), đảm bảo mô hình không bị thiên vị sang lớp Positive.
 3. **Tiêu chí Đánh giá Khách quan:** Sử dụng **Macro F1-Score** (trung bình F1 của cả 3 lớp) làm độ đo quyết định thay vì Accuracy thông thường, nhằm phản ánh chính xác năng lực phân loại trên tất cả các sắc thái cảm xúc.
 
@@ -147,8 +147,11 @@ cd NLP-Sentiment-Analysis-ITviec
 
 ### Bước 2: Cài đặt môi trường & Thư viện
 ```bash
-pip install -r requirements.txt
+uv venv .venv --python 3.11
+uv pip sync requirements.lock --python .venv/bin/python
 ```
+
+`requirements.lock` khóa chính xác môi trường dùng để sinh và đọc các artifact `joblib`. Nếu chỉ phát triển và không cần tái lập artifact, có thể dùng `pip install -r requirements.txt`.
 
 ### Bước 3: Tạo nhánh (Branch) riêng cho từng thành viên
 Mỗi thành viên tạo và làm việc trên một nhánh riêng biệt:
@@ -190,13 +193,13 @@ git push origin feature/<ten-nhanh-cua-ban>
 
 ## 7. Bảng Theo dõi Tiến độ Hiện tại (Current Project Status)
 
-*Cập nhật lần cuối: 27/08/2026*
+*Cập nhật lần cuối: 28/08/2026*
 
 | Hạng mục công việc | Phụ trách chính | Trạng thái | Chi tiết kết quả bàn giao |
 | :--- | :--- | :---: | :--- |
 | **1. Thiết lập dự án & Bộ từ điển** | **TV1: Hoàng Hôn** | ✅ **100% (Hoàn thành)** | Cấu trúc Repo, `requirements.txt`, bộ từ điển đầy đủ trong `data/dictionaries/` (*teencode, emojicon, positive/negative words & emoji, stopwords*). |
 | **2. Pipeline Tiền xử lý & Gán nhãn** | **TV1: Hoàng Hôn** | ✅ **100% (Hoàn thành)** | Hoàn thiện module `src/preprocessing.py`, notebook `02_text_preprocessing.ipynb`. Xuất thành công `data/processed/reviews_cleaned.xlsx` (8,417 mẫu, 23 cột, gán nhãn 3 lớp: *6,208 Positive, 1,639 Neutral, 570 Negative*). |
-| **3. Phân tích EDA & Đặc trưng TF-IDF** | **TV2: Văn Duy** | 🔄 **Đang thực hiện** | Nhận bàn giao dữ liệu sạch, thực hiện `01_data_exploration_eda.ipynb` và hoàn thiện module `src/features.py`. |
-| **4. Huấn luyện Mô hình Machine Learning** | **TV3: Duy Khang** | ⏳ **Sẵn sàng triển khai** | Chuẩn bị chạy `03_sentiment_modeling_ml.ipynb` (4 thuật toán ML, Hyperparameter Tuning và Stacking Ensemble). |
+| **3. Phân tích EDA & Đặc trưng TF-IDF** | **TV2: Văn Duy** | ✅ **Đã kiểm chứng & bàn giao** | Hoàn thiện `01_data_exploration_eda.ipynb`, `src/features.py`, 9 biểu đồ, development CV, final test khóa, text-only artifact + manifest và tài liệu overview cho TV3. Aspect ratings chỉ dùng làm diagnostic, không trộn vào pipeline NLP chính. |
+| **4. Huấn luyện Mô hình Machine Learning** | **TV3: Duy Khang** | ⏳ **Sẵn sàng triển khai** | `03_sentiment_modeling_ml.ipynb` đã dùng trực tiếp artifact TV2, chọn mô hình bằng CV trên development và chỉ đánh giá final test sau khi khóa mô hình. |
 | **5. Đánh giá, Insight & Web Demo** | **TV4: Thành Trung** | ⏳ **Sẵn sàng triển khai** | Chuẩn bị chạy `05_company_sentiment_insights.ipynb` (WordCloud công ty, Confusion Matrix) và xây dựng Web Demo (Streamlit/Gradio). |
 | **6. Báo cáo tổng hợp & Slide thuyết trình** | **TV1 & Cả nhóm** | ⏳ **Giai đoạn tiếp theo** | Soạn thảo theo mẫu đề cương `reports/final_report_outline.md`. |
