@@ -13,7 +13,65 @@ Dự án tập trung chuyên sâu vào bài toán **Phân tích Cảm xúc (Sent
 
 ---
 
-## 2. Phân chia Công việc Nhóm (Team Assignment)
+## 2. Ý tưởng & Phương pháp Tiếp cận Xử lý (Methodology & Pipeline Architecture)
+
+### 2.1. Thách thức đặc thù của Dữ liệu ITviec
+- **Pha trộn ngôn ngữ (Code-switching):** Review ngành công nghệ chứa mật độ cao thuật ngữ tiếng Anh IT (*OT, layoff, micromanage, benefit, review, deploy, probation,...*).
+- **Teencode & Viết tắt:** Sử dụng nhiều từ viết tắt, tiếng lóng (*cty, mn, k, lm, cx, mk, vđ, dc,...*).
+- **Biểu tượng cảm xúc (Emoji / Emojicon):** Chứa nhiều icon thể hiện cảm xúc mạnh (*:), :((, 😡, ❤️, 👍*).
+- **Mất cân bằng dữ liệu (Class Imbalance):** Đánh giá tích cực (Positive ~73.8%) chiếm đa số áp đảo so với Neutral (~19.5%) và Negative (~6.7%).
+
+### 2.2. Sơ đồ Luồng Xử lý Tổng thể (End-to-End Pipeline)
+
+```mermaid
+flowchart TD
+    A[Dữ liệu thô ITviec: 8,417 mẫu] --> B[Giai đoạn 1: Chuẩn hóa & Tiền xử lý Đa cấp]
+    
+    subgraph B [Pipeline Tiền Xử Lý]
+        B1[Unicode NFC + Xóa URL/Email] --> B2[Ánh xạ Emoji / Emojicon]
+        B2 --> B3[Dịch Teencode & Lỗi chính tả IT]
+        B3 --> B4[clean_basic_text: Dành cho Transformer]
+        B4 --> B5[Tách từ underthesea + Lọc Stopwords]
+        B5 --> B6[clean_advance_text: Dành cho ML]
+    end
+    
+    B --> C[Giai đoạn 2: Trích xuất Đặc trưng Hybrid]
+    
+    subgraph C [Feature Engineering]
+        C1[TF-IDF N-gram 1-2 + Sublinear TF]
+        C2[Lexicon Features: pos_w, neg_w, pos_e, neg_e, sentiment_ratio]
+        C3[Kết hợp TF-IDF + Lexicon Vector]
+    end
+    
+    C --> D[Giai đoạn 3: Huấn luyện & Tối ưu Mô hình]
+    
+    subgraph D [Modeling & Optimization]
+        D1[Machine Learning: MNB, SVM, LogReg, Random Forest]
+        D2[Xử lý Mất cân bằng: Class Weighting / SMOTE]
+        D3[Stacking Ensemble Classifier]
+        D4[Fine-tuning Pretrained ViSoBERT]
+    end
+    
+    D --> E[Giai đoạn 4: Đánh giá & Insights Doanh nghiệp]
+    
+    subgraph E [Evaluation & Insights]
+        E1[Đánh giá Macro F1, Confusion Matrix, Error Analysis]
+        E2[WordCloud Từ khóa Cảm xúc theo từng Công ty]
+        E3[Web Demo Tương tác Thời gian thực: Streamlit]
+    end
+```
+
+### 2.3. Ý tưởng Xử lý Cốt lõi
+1. **Chuẩn hóa văn bản 2 tầng (Dual-tier Normalization):**
+   - `clean_basic_text`: Giữ nguyên cấu trúc ngữ pháp tự nhiên, chỉ chuẩn hóa teencode và emoji sang từ vựng có nghĩa -> Tối ưu cho mô hình ngôn ngữ sâu (**ViSoBERT / PhoBERT**).
+   - `clean_advance_text`: Tách từ ghép tiếng Việt và lọc bỏ stopwords nhiễu -> Tối ưu không gian vector cho các mô hình học máy truyền thống (**SVM, Naive Bayes, Logistic Regression**).
+2. **Trích xuất đặc trưng kết hợp (Hybrid Features):** Kết hợp giữa trọng số ngữ nghĩa tần suất **TF-IDF (Unigram + Bigram)** cùng với **đặc trưng từ điển cảm xúc Lexicon** (`pos_w`, `neg_w`, `sentiment_ratio`) để cung cấp thêm tín hiệu cảm xúc trực tiếp cho bộ phân loại.
+3. **Xử lý Mất cân bằng lớp (Handling Class Imbalance):** Tích hợp trọng số lớp nghịch đảo (`class_weight='balanced'`) và tinh chỉnh ngưỡng quyết định để tránh thiên lệch về lớp chiếm đa số (Positive).
+4. **Mô hình hóa đa tầng & Ensemble:** So sánh từ mô hình xác suất cơ sở (Multinomial NB) đến mô hình biên cực đại (Linear SVM), mô hình tuyến tính (Logistic Regression) và kết hợp thông qua **Stacking Ensemble** để khai thác điểm mạnh của từng thuật toán.
+
+---
+
+## 3. Phân chia Công việc Nhóm (Team Assignment)
 
 | Thành viên | Phân công | Kế hoạch chi tiết |
 | :--- | :--- | :--- |
@@ -26,7 +84,7 @@ Dự án tập trung chuyên sâu vào bài toán **Phân tích Cảm xúc (Sent
 
 ---
 
-## 3. Cấu trúc thư mục (Project Structure)
+## 4. Cấu trúc thư mục (Project Structure)
 
 ```text
 Do_An_Sentiment_Analysis/
@@ -58,7 +116,7 @@ Do_An_Sentiment_Analysis/
 
 ---
 
-## 4. Hướng dẫn Thành viên Clone & Phối hợp trên Git (Git Workflow)
+## 5. Hướng dẫn Thành viên Clone & Phối hợp trên Git (Git Workflow)
 
 ### Bước 1: Clone dự án về máy
 ```bash
@@ -96,7 +154,7 @@ git push origin feature/<ten-nhanh-cua-ban>
 
 ---
 
-## 5. Quy trình thực hiện Notebooks
+## 6. Quy trình thực hiện Notebooks
 
 1. **Giai đoạn 1 (EDA & Data):**
    - Chạy `notebooks/01_data_exploration_eda.ipynb` để khám phá phân bố số sao rating và cảm xúc.
@@ -109,7 +167,7 @@ git push origin feature/<ten-nhanh-cua-ban>
 
 ---
 
-## 6. Bảng Theo dõi Tiến độ Hiện tại (Current Project Status)
+## 7. Bảng Theo dõi Tiến độ Hiện tại (Current Project Status)
 
 *Cập nhật lần cuối: 27/08/2026*
 
