@@ -13,61 +13,80 @@ Dự án tập trung chuyên sâu vào bài toán **Phân tích Cảm xúc (Sent
 
 ---
 
-## 2. Ý tưởng & Phương pháp Tiếp cận Xử lý (Methodology & Pipeline Architecture)
+## 2. Ý Tưởng & Phương Pháp Giải Quyết Bài Toán (Problem Formulation & Solution Approach)
 
-### 2.1. Thách thức đặc thù của Dữ liệu ITviec
-- **Pha trộn ngôn ngữ (Code-switching):** Review ngành công nghệ chứa mật độ cao thuật ngữ tiếng Anh IT (*OT, layoff, micromanage, benefit, review, deploy, probation,...*).
-- **Teencode & Viết tắt:** Sử dụng nhiều từ viết tắt, tiếng lóng (*cty, mn, k, lm, cx, mk, vđ, dc,...*).
-- **Biểu tượng cảm xúc (Emoji / Emojicon):** Chứa nhiều icon thể hiện cảm xúc mạnh (*:), :((, 😡, ❤️, 👍*).
-- **Mất cân bằng dữ liệu (Class Imbalance):** Đánh giá tích cực (Positive ~73.8%) chiếm đa số áp đảo so với Neutral (~19.5%) và Negative (~6.7%).
+### 2.1. Bản chất Bài toán & Xử lý Ghép Văn bản (Text Aggregation)
+- **Bản chất dữ liệu:** Dữ liệu gốc thu thập từ ITviec gồm 8,417 đánh giá thực tế của nhân viên và ứng viên. Mỗi đánh giá được chia thành 3 phần độc lập: `Title` (Tiêu đề), `What I liked` (Điểm thích/Khen ngợi) và `Suggestions for improvement` (Đề xuất cải thiện/Góp ý/Chê).
+- **Ý tưởng ghép trường văn bản:** Để mô hình có góc nhìn toàn diện về toàn bộ ý kiến đánh giá, ta tiến hành nối 3 trường này lại thành chuỗi văn bản hợp nhất:
+  $$\text{raw\_review\_text} = \text{Title} + \text{" . "} + \text{What I liked} + \text{" . "} + \text{Suggestions for improvement}$$
 
-### 2.2. Sơ đồ Luồng Xử lý Tổng thể (End-to-End Pipeline)
+### 2.2. Chiến lược Gán nhãn Cảm xúc Chuẩn (Ground Truth Labeling Strategy)
+Để huấn luyện các mô hình học máy có giám sát (Supervised Learning), bài toán cần một bộ nhãn chuẩn xác thực. Thay vì gán nhãn thủ công tốn kém, ta sử dụng chính điểm đánh giá số sao **`Rating` (từ 1 đến 5 sao)** do người viết review trực tiếp chấm để làm nhãn thực tế (*Ground Truth*):
+
+| Số sao (`Rating`) | Nhãn Cảm xúc (`Sentiment`) | Ý nghĩa nghiệp vụ | Số lượng mẫu | Tỷ lệ (%) |
+| :---: | :---: | :--- | :---: | :---: |
+| ⭐⭐⭐⭐⭐ (5 sao)<br>⭐⭐⭐⭐ (4 sao) | **`Positive`** *(Tích cực)* | Đánh giá thể hiện sự hài lòng cao về môi trường, chế độ đãi ngộ, văn hóa làm việc và ban lãnh đạo. | 6,208 | 73.76% |
+| ⭐⭐⭐ (3 sao) | **`Neutral`** *(Trung tính)* | Đánh giá ở mức trung hòa, cân bằng; nội dung thường có cả điểm khen lẫn điểm chê tương đương nhau. | 1,639 | 19.47% |
+| ⭐⭐ (2 sao)<br>⭐ (1 sao) | **`Negative`** *(Tiêu cực)* | Đánh giá thể hiện sự thất vọng, bức xúc về chính sách OT, quản lý yếu kém, môi trường độc hại hoặc chế độ đãi ngộ không thỏa đáng. | 570 | 6.77% |
+
+> **Kiểm chứng tính nhất quán nhãn (Validation):** Sử dụng các từ điển cảm xúc (`positive_words`, `negative_words`, emoji) để tính toán tỷ số cảm xúc $\text{sentiment\_ratio}$ và đối chiếu với nhãn số sao nhằm kiểm định mức độ tương đồng giữa nội dung văn bản và số sao chấm.
+
+### 2.3. Thách thức đặc thù của Dữ liệu ITviec & Chiến lược Tiền xử lý Đa cấp
+- **Thách thức:** Review ngành công nghệ mang tính đặc thù rất cao:
+  1. Chêm xen tiếng Anh dày đặc (*OT, layoff, micromanage, benefit, probation, onboard, deploy, dev, pm,...*).
+  2. Nhiều từ viết tắt, tiếng lóng, teencode (*cty, mn, k, lm, cx, mk, vđ, dc,...*).
+  3. Biểu tượng cảm xúc (Emoji / Emojicon) thể hiện thái độ mạnh mẽ (*:), :((, ^^, 😡, ❤️, 👍*).
+  4. Hiện tượng mất cân bằng dữ liệu nghiêm trọng (Positive chiếm đến 73.76% trong khi Negative chỉ 6.77%).
+- **Chiến lược làm sạch 2 tầng (Dual-tier Preprocessing):**
+  - **Tầng 1 - `clean_basic_text`:** Chuẩn hóa Unicode NFC, xóa link/email, giải mã emoji thành từ ngữ cảm xúc (`:)` $\to$ `tích_cực`, `😡` $\to$ `tiêu_cực`), dịch teencode và thuật ngữ IT sang tiếng Việt chuẩn. **Giữ nguyên cấu trúc ngữ pháp tự nhiên** $\to$ Tối ưu cho các mô hình ngôn ngữ sâu Transformer (**ViSoBERT / PhoBERT**).
+  - **Tầng 2 - `clean_advance_text`:** Tách từ ghép tiếng Việt (`underthesea.word_tokenize`) và lọc bỏ từ dừng vô nghĩa (nhưng bảo lưu các từ mang sắc thái phủ định như *không, chẳng, chưa*). **Tối ưu không gian vector từ vựng** $\to$ Dành riêng cho các mô hình Machine Learning cổ điển (**SVM, Naive Bayes, Logistic Regression, Random Forest**).
+
+### 2.4. Sơ đồ Luồng Xử lý Tổng thể (End-to-End Pipeline)
 
 ```mermaid
 flowchart TD
-    A[Dữ liệu thô ITviec: 8,417 mẫu] --> B[Giai đoạn 1: Chuẩn hóa & Tiền xử lý Đa cấp]
+    A["Dữ liệu thô ITviec (8,417 mẫu)<br>[Title, Liked, Improvement, Rating]"] --> B["Ghép text & Gán nhãn cảm xúc 3 lớp<br>(Positive: 4-5★, Neutral: 3★, Negative: 1-2★)"]
     
-    subgraph B [Pipeline Tiền Xử Lý]
-        B1[Unicode NFC + Xóa URL/Email] --> B2[Ánh xạ Emoji / Emojicon]
-        B2 --> B3[Dịch Teencode & Lỗi chính tả IT]
-        B3 --> B4[clean_basic_text: Dành cho Transformer]
-        B4 --> B5[Tách từ underthesea + Lọc Stopwords]
-        B5 --> B6[clean_advance_text: Dành cho ML]
+    B --> C["Pipeline Tiền xử lý 2 tầng (src/preprocessing.py)"]
+    
+    subgraph C ["Pipeline Tiền Xử Lý"]
+        C1["Chuẩn hóa Unicode NFC + Lọc URL/Email"] --> C2["Ánh xạ Emoji/Emojicon sang từ ngữ cảm xúc"]
+        C2 --> C3["Dịch Teencode, Lỗi chính tả & Thuật ngữ IT"]
+        C3 --> C4["clean_basic_text (Cấu trúc tự nhiên)"]
+        C4 --> C5["Tách từ tiếng Việt underthesea + Lọc Stopwords"]
+        C5 --> C6["clean_advance_text (Từ ghép chuẩn)"]
     end
     
-    B --> C[Giai đoạn 2: Trích xuất Đặc trưng Hybrid]
+    C --> D["Trích xuất Đặc trưng Hybrid (src/features.py)"]
     
-    subgraph C [Feature Engineering]
-        C1[TF-IDF N-gram 1-2 + Sublinear TF]
-        C2[Lexicon Features: pos_w, neg_w, pos_e, neg_e, sentiment_ratio]
-        C3[Kết hợp TF-IDF + Lexicon Vector]
+    subgraph D ["Feature Engineering"]
+        D1["TF-IDF N-gram (1-2 từ) + Sublinear TF"]
+        D2["Đặc trưng Lexicon: pos_w, neg_w, pos_e, neg_e, sentiment_ratio"]
+        D3["Kết hợp Vector: TF-IDF Features + Lexicon Features"]
     end
     
-    C --> D[Giai đoạn 3: Huấn luyện & Tối ưu Mô hình]
+    D --> E["Huấn luyện & Xử lý Mất cân bằng (src/models.py)"]
     
-    subgraph D [Modeling & Optimization]
-        D1[Machine Learning: MNB, SVM, LogReg, Random Forest]
-        D2[Xử lý Mất cân bằng: Class Weighting / SMOTE]
-        D3[Stacking Ensemble Classifier]
-        D4[Fine-tuning Pretrained ViSoBERT]
+    subgraph E ["Modeling & Balancing"]
+        E1["Mô hình ML: MNB, Linear SVM, Logistic Regression, Random Forest"]
+        E2["Xử lý Mất cân bằng: Class Weighting ('balanced') / SMOTE"]
+        E3["Stacking Ensemble Classifier"]
+        E4["Fine-tuning Pretrained ViSoBERT"]
     end
     
-    D --> E[Giai đoạn 4: Đánh giá & Insights Doanh nghiệp]
+    E --> F["Đánh giá & Khai phá Insight Doanh nghiệp"]
     
-    subgraph E [Evaluation & Insights]
-        E1[Đánh giá Macro F1, Confusion Matrix, Error Analysis]
-        E2[WordCloud Từ khóa Cảm xúc theo từng Công ty]
-        E3[Web Demo Tương tác Thời gian thực: Streamlit]
+    subgraph F ["Evaluation & Deployment"]
+        F1["Đánh giá: Macro F1-Score, Confusion Matrix, Error Analysis"]
+        F2["Trích xuất WordCloud Tích cực / Tiêu cực theo Công ty"]
+        F3["Web Demo Phân tích Cảm xúc Thời gian thực (Streamlit)"]
     end
 ```
 
-### 2.3. Ý tưởng Xử lý Cốt lõi
-1. **Chuẩn hóa văn bản 2 tầng (Dual-tier Normalization):**
-   - `clean_basic_text`: Giữ nguyên cấu trúc ngữ pháp tự nhiên, chỉ chuẩn hóa teencode và emoji sang từ vựng có nghĩa -> Tối ưu cho mô hình ngôn ngữ sâu (**ViSoBERT / PhoBERT**).
-   - `clean_advance_text`: Tách từ ghép tiếng Việt và lọc bỏ stopwords nhiễu -> Tối ưu không gian vector cho các mô hình học máy truyền thống (**SVM, Naive Bayes, Logistic Regression**).
-2. **Trích xuất đặc trưng kết hợp (Hybrid Features):** Kết hợp giữa trọng số ngữ nghĩa tần suất **TF-IDF (Unigram + Bigram)** cùng với **đặc trưng từ điển cảm xúc Lexicon** (`pos_w`, `neg_w`, `sentiment_ratio`) để cung cấp thêm tín hiệu cảm xúc trực tiếp cho bộ phân loại.
-3. **Xử lý Mất cân bằng lớp (Handling Class Imbalance):** Tích hợp trọng số lớp nghịch đảo (`class_weight='balanced'`) và tinh chỉnh ngưỡng quyết định để tránh thiên lệch về lớp chiếm đa số (Positive).
-4. **Mô hình hóa đa tầng & Ensemble:** So sánh từ mô hình xác suất cơ sở (Multinomial NB) đến mô hình biên cực đại (Linear SVM), mô hình tuyến tính (Logistic Regression) và kết hợp thông qua **Stacking Ensemble** để khai thác điểm mạnh của từng thuật toán.
+### 2.5. Ý tưởng Trích xuất Đặc trưng, Cân bằng Dữ liệu & Đánh giá
+1. **Đặc trưng kết hợp Hybrid (TF-IDF + Lexicon):** TF-IDF N-gram (1-2 từ) giúp bắt cụm từ ngữ cảnh (*"rất tốt", "quá tệ", "thiếu minh bạch"*), kết hợp cùng các đặc trưng số học từ điển cảm xúc (`pos_w`, `neg_w`, `sentiment_ratio`) để cung cấp thêm chỉ dấu cảm xúc mạnh mẽ cho bộ phân loại.
+2. **Xử lý Mất cân bằng lớp (Handling Class Imbalance):** Áp dụng trọng số lớp nghịch đảo `class_weight='balanced'` trong hàm tối ưu của mô hình để phạt nặng hơn khi đoán sai lớp thiểu số (Negative và Neutral), đảm bảo mô hình không bị thiên vị sang lớp Positive.
+3. **Tiêu chí Đánh giá Khách quan:** Sử dụng **Macro F1-Score** (trung bình F1 của cả 3 lớp) làm độ đo quyết định thay vì Accuracy thông thường, nhằm phản ánh chính xác năng lực phân loại trên tất cả các sắc thái cảm xúc.
 
 ---
 
