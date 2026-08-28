@@ -26,7 +26,7 @@
   - Tạo WordCloud cho toàn bộ tập đánh giá Tích cực (`wordcloud_positive_all.png`).
   - Tạo WordCloud cho toàn bộ tập đánh giá Tiêu cực (`wordcloud_negative_all.png`).
 - [ ] **Phân tích Case Study theo từng Doanh nghiệp cụ thể:**
-  - Lọc dữ liệu theo top 2-3 công ty có nhiều đánh giá nhất trên ITviec (ví dụ: FPT Software, Hitachi Digital Services, VNG, Viettel,...).
+  - Chỉ phân tích công ty đạt ngưỡng mẫu tối thiểu; luôn hiển thị số review và không xếp hạng công ty có mẫu quá nhỏ.
   - Thống kê tỷ lệ phần trăm đánh giá Tích cực / Tiêu cực tại công ty đó.
   - Tạo WordCloud riêng về các vấn đề bị phàn nàn nhiều nhất (Điểm yếu cần cải thiện) và các điểm được khen ngợi nhiều nhất (Điểm mạnh) của công ty.
   - Đưa ra đề xuất cải tiến thiết thực cho Ban lãnh đạo & HR của doanh nghiệp.
@@ -34,7 +34,7 @@
 ### 🟢 Ngày 3: Xây dựng Ứng dụng Web Demo Phân loại Cảm xúc (Deployment)
 - [ ] **Xây dựng ứng dụng Web tương tác bằng Streamlit hoặc Gradio:**
   - Tạo file `app.py` trong thư mục gốc.
-  - Tải mô hình tốt nhất (`models/best_sentiment_model.joblib`) và bộ `models/tfidf_vectorizer.joblib`.
+  - Tải mô hình text-only tốt nhất (`models/best_sentiment_model.joblib`) và `models/text_feature_extractor.joblib`; kiểm tra feature contract trong `models/artifact_manifest.json`.
   - Giao diện gồm:
     - **Ô nhập văn bản:** Cho phép người dùng nhập 1 câu review bất kỳ.
     - **Nút "Dự đoán Cảm xúc":** Hệ thống tự động tiền xử lý (qua `TextPreprocessor`) $\rightarrow$ TF-IDF $\rightarrow$ Mô hình dự đoán.

@@ -1,0 +1,301 @@
+sample_id,source_index,id,Company Name,Rating,rating_derived_weak_label,Recommend?
+SA-001,1697,182,FPT Software,5,Positive,Yes
+SA-002,5841,320,NTT DATA VDS,4,Positive,Yes
+SA-003,2438,182,FPT Software,5,Positive,Yes
+SA-004,3268,182,FPT Software,3,Neutral,Yes
+SA-005,2431,182,FPT Software,3,Neutral,Yes
+SA-006,299,50,Bosch Global Software Technologies Company Limited,4,Positive,Yes
+SA-007,3984,215,Hitachi Digital Services,4,Positive,Yes
+SA-008,8332,472,YOONG,5,Positive,Yes
+SA-009,375,50,Bosch Global Software Technologies Company Limited,3,Neutral,Yes
+SA-010,1608,182,FPT Software,3,Neutral,Yes
+SA-011,2375,182,FPT Software,3,Neutral,No
+SA-012,4877,264,LHV Software,3,Neutral,Yes
+SA-013,3948,215,Hitachi Digital Services,2,Negative,No
+SA-014,5507,306,NashTech,2,Negative,No
+SA-015,2770,182,FPT Software,2,Negative,No
+SA-016,260,50,Bosch Global Software Technologies Company Limited,3,Neutral,Yes
+SA-017,6178,337,PAL TECH,4,Positive,Yes
+SA-018,4502,253,KMS Technology,3,Neutral,Yes
+SA-019,4816,262,LG Electronics Development Vietnam (LGEDV),3,Neutral,Yes
+SA-020,3173,182,FPT Software,2,Negative,No
+SA-021,2563,182,FPT Software,3,Neutral,Yes
+SA-022,7690,437,TymeX,5,Positive,Yes
+SA-023,2505,182,FPT Software,3,Neutral,No
+SA-024,5022,276,MB Bank,5,Positive,Yes
+SA-025,3776,215,Hitachi Digital Services,3,Neutral,Yes
+SA-026,4198,223,IMT Solutions,3,Neutral,Yes
+SA-027,7886,453,Viettel Post (A Member of Viettel Group),1,Negative,No
+SA-028,83,24,Asilla,5,Positive,Yes
+SA-029,252,50,Bosch Global Software Technologies Company Limited,2,Negative,No
+SA-030,1554,182,FPT Software,3,Neutral,Yes
+SA-031,3428,195,GeoComply (GeoTech Hub Vietnam),4,Positive,Yes
+SA-032,5765,310,New Ocean IS,5,Positive,Yes
+SA-033,7032,396,SmartOSC,3,Neutral,No
+SA-034,5898,326,One Mount Group,4,Positive,No
+SA-035,5885,325,OMNIA SYSTEMS COMPANY LIMITED,5,Positive,Yes
+SA-036,4832,262,LG Electronics Development Vietnam (LGEDV),3,Neutral,Yes
+SA-037,2893,182,FPT Software,2,Negative,No
+SA-038,6711,372,Samsung Electronics HCMC CE Complex,5,Positive,Yes
+SA-039,1345,182,FPT Software,2,Negative,No
+SA-040,6907,375,Scandinavian Software Park,5,Positive,Yes
+SA-041,8248,463,VPBank,3,Neutral,No
+SA-042,2894,182,FPT Software,3,Neutral,Yes
+SA-043,5285,301,Nakivo,2,Negative,No
+SA-044,2958,182,FPT Software,3,Neutral,Yes
+SA-045,774,129,Creative Force,5,Positive,Yes
+SA-046,1928,182,FPT Software,2,Negative,Yes
+SA-047,5962,331,Optimizely,5,Positive,Yes
+SA-048,6531,368,Restaff – House Of Norway,5,Positive,Yes
+SA-049,6512,363,"Rakuten Fintech Vietnam Co., Ltd.",5,Positive,Yes
+SA-050,5902,326,One Mount Group,4,Positive,Yes
+SA-051,6579,368,Restaff – House Of Norway,5,Positive,Yes
+SA-052,3101,182,FPT Software,3,Neutral,No
+SA-053,6298,339,Parcel Perform,5,Positive,Yes
+SA-054,6743,372,Samsung Electronics HCMC CE Complex,5,Positive,Yes
+SA-055,1658,182,FPT Software,3,Neutral,Yes
+SA-056,7547,436,Trusting Social,4,Positive,Yes
+SA-057,5718,307,NAVER VIETNAM,5,Positive,Yes
+SA-058,8238,463,VPBank,3,Neutral,No
+SA-059,1355,182,FPT Software,3,Neutral,Yes
+SA-060,6865,372,Samsung Electronics HCMC CE Complex,4,Positive,Yes
+SA-061,6788,372,Samsung Electronics HCMC CE Complex,5,Positive,Yes
+SA-062,4683,257,LARION,3,Neutral,Yes
+SA-063,7177,396,SmartOSC,1,Negative,No
+SA-064,7247,402,Solazu JSC,4,Positive,Yes
+SA-065,2812,182,FPT Software,3,Neutral,Yes
+SA-066,3113,182,FPT Software,4,Positive,Yes
+SA-067,5408,306,NashTech,3,Neutral,Yes
+SA-068,3926,215,Hitachi Digital Services,2,Negative,No
+SA-069,3736,212,HDWEBSOFT,2,Negative,No
+SA-070,3797,215,Hitachi Digital Services,1,Negative,No
+SA-071,1413,182,FPT Software,4,Positive,Yes
+SA-072,3994,215,Hitachi Digital Services,3,Neutral,Yes
+SA-073,7602,436,Trusting Social,2,Negative,No
+SA-074,1703,182,FPT Software,3,Neutral,Yes
+SA-075,6520,368,Restaff – House Of Norway,5,Positive,Yes
+SA-076,298,50,Bosch Global Software Technologies Company Limited,1,Negative,No
+SA-077,3482,197,GFT Technologies Vietnam,5,Positive,Yes
+SA-078,8347,472,YOONG,5,Positive,Yes
+SA-079,918,153,East Agile,5,Positive,Yes
+SA-080,4191,223,IMT Solutions,3,Neutral,Yes
+SA-081,2514,182,FPT Software,2,Negative,No
+SA-082,7907,458,Vitalify Asia,2,Negative,No
+SA-083,7385,422,The Rep. Office of STYL Solutions Pte. Ltd. In HCMC,2,Negative,No
+SA-084,2058,182,FPT Software,2,Negative,No
+SA-085,4503,253,KMS Technology,2,Negative,No
+SA-086,119,29,Aviron,4,Positive,Yes
+SA-087,343,50,Bosch Global Software Technologies Company Limited,3,Neutral,Yes
+SA-088,3758,215,Hitachi Digital Services,2,Negative,No
+SA-089,2146,182,FPT Software,4,Positive,Yes
+SA-090,4292,238,IVC (ISB Vietnam),1,Negative,No
+SA-091,1976,182,FPT Software,4,Positive,Yes
+SA-092,1622,182,FPT Software,2,Negative,No
+SA-093,7764,437,TymeX,5,Positive,Yes
+SA-094,2569,182,FPT Software,2,Negative,No
+SA-095,4567,253,KMS Technology,3,Neutral,No
+SA-096,7365,416,Techcombank,3,Neutral,Yes
+SA-097,4281,238,IVC (ISB Vietnam),2,Negative,No
+SA-098,7893,458,Vitalify Asia,4,Positive,Yes
+SA-099,1193,168,Extreme Việt Nam,5,Positive,Yes
+SA-100,7242,397,SMG Swiss Marketplace Group,4,Positive,Yes
+SA-101,2405,182,FPT Software,3,Neutral,Yes
+SA-102,1857,182,FPT Software,4,Positive,Yes
+SA-103,1286,176,FireGroup,2,Negative,No
+SA-104,7011,390,Simpson Strong-Tie Vietnam,2,Negative,No
+SA-105,6905,375,Scandinavian Software Park,5,Positive,Yes
+SA-106,3982,215,Hitachi Digital Services,3,Neutral,Yes
+SA-107,263,50,Bosch Global Software Technologies Company Limited,5,Positive,Yes
+SA-108,3741,212,HDWEBSOFT,3,Neutral,Yes
+SA-109,6415,357,PwC Vietnam,4,Positive,Yes
+SA-110,5056,277,Mcredit - Công ty Tài chính TNHH MB Shinsei,3,Neutral,Yes
+SA-111,6570,368,Restaff – House Of Norway,5,Positive,Yes
+SA-112,3182,182,FPT Software,3,Neutral,Yes
+SA-113,6858,372,Samsung Electronics HCMC CE Complex,3,Neutral,No
+SA-114,1061,158,ELCA,3,Neutral,Yes
+SA-115,2685,182,FPT Software,3,Neutral,No
+SA-116,3100,182,FPT Software,2,Negative,No
+SA-117,4450,253,KMS Technology,4,Positive,Yes
+SA-118,8059,460,VNG Corporation,3,Neutral,Yes
+SA-119,468,50,Bosch Global Software Technologies Company Limited,2,Negative,No
+SA-120,6129,333,Orient Software Development Corp.,1,Negative,No
+SA-121,924,153,East Agile,4,Positive,Yes
+SA-122,3663,206,Gsoft,2,Negative,No
+SA-123,2371,182,FPT Software,2,Negative,No
+SA-124,34,6,Ahamove,2,Negative,No
+SA-125,6946,376,SCC Vietnam,4,Positive,Yes
+SA-126,4036,220,Hybrid Technologies,3,Neutral,Yes
+SA-127,102,25,Athena Studio,5,Positive,Yes
+SA-128,7863,452,Viettel Group,2,Negative,No
+SA-129,472,50,Bosch Global Software Technologies Company Limited,3,Neutral,Yes
+SA-130,3648,204,Grab (Vietnam) Ltd.,5,Positive,Yes
+SA-131,7351,416,Techcombank,3,Neutral,No
+SA-132,5124,290,Bray Leion Splash Group,5,Positive,Yes
+SA-133,1690,182,FPT Software,2,Negative,No
+SA-134,1069,158,ELCA,3,Neutral,Yes
+SA-135,4317,239,IVS,2,Negative,Yes
+SA-136,7276,403,Sota Tek,4,Positive,Yes
+SA-137,1731,182,FPT Software,4,Positive,Yes
+SA-138,8397,477,Zuhlke Engineering Vietnam,4,Positive,Yes
+SA-139,4313,239,IVS,3,Neutral,No
+SA-140,2991,182,FPT Software,3,Neutral,Yes
+SA-141,267,50,Bosch Global Software Technologies Company Limited,3,Neutral,No
+SA-142,5856,321,"Ohmyhotel&Co VN Co.,Ltd",3,Neutral,No
+SA-143,2687,182,FPT Software,2,Negative,No
+SA-144,2583,182,FPT Software,3,Neutral,No
+SA-145,7910,458,Vitalify Asia,2,Negative,Yes
+SA-146,2331,182,FPT Software,3,Neutral,Yes
+SA-147,3958,215,Hitachi Digital Services,2,Negative,No
+SA-148,489,52,Breadstack Technologies Inc,3,Neutral,Yes
+SA-149,2790,182,FPT Software,3,Neutral,Yes
+SA-150,7925,458,Vitalify Asia,2,Negative,No
+SA-151,2281,182,FPT Software,4,Positive,Yes
+SA-152,430,50,Bosch Global Software Technologies Company Limited,3,Neutral,Yes
+SA-153,2755,182,FPT Software,3,Neutral,Yes
+SA-154,6187,338,Panasonic Vietnam Group – Panasonic R&D Center Vietnam (PRDCV),4,Positive,Yes
+SA-155,2928,182,FPT Software,3,Neutral,Yes
+SA-156,5943,328,Onpoint,2,Negative,No
+SA-157,4252,230,Innotech Vietnam Corporation,1,Negative,No
+SA-158,2713,182,FPT Software,3,Neutral,Yes
+SA-159,3908,215,Hitachi Digital Services,2,Negative,No
+SA-160,5074,285,mgm technology partners Vietnam,4,Positive,Yes
+SA-161,6052,333,Orient Software Development Corp.,5,Positive,Yes
+SA-162,8075,460,VNG Corporation,4,Positive,Yes
+SA-163,459,50,Bosch Global Software Technologies Company Limited,3,Neutral,Yes
+SA-164,7877,452,Viettel Group,3,Neutral,Yes
+SA-165,4229,230,Innotech Vietnam Corporation,1,Negative,No
+SA-166,4035,220,Hybrid Technologies,2,Negative,No
+SA-167,2960,182,FPT Software,3,Neutral,Yes
+SA-168,1904,182,FPT Software,4,Positive,Yes
+SA-169,6451,361,RAKSUL Vietnam,5,Positive,Yes
+SA-170,4367,249,KiotViet Corporation,2,Negative,No
+SA-171,3132,182,FPT Software,2,Negative,No
+SA-172,3874,215,Hitachi Digital Services,3,Neutral,Yes
+SA-173,5413,306,NashTech,4,Positive,Yes
+SA-174,8128,460,VNG Corporation,3,Neutral,Yes
+SA-175,1495,182,FPT Software,3,Neutral,Yes
+SA-176,3640,204,Grab (Vietnam) Ltd.,5,Positive,Yes
+SA-177,77,21,ARIS Vietnam,3,Neutral,No
+SA-178,8271,471,Yes4All,2,Negative,No
+SA-179,5146,298,MSB,5,Positive,Yes
+SA-180,7977,460,VNG Corporation,3,Neutral,No
+SA-181,8282,472,YOONG,5,Positive,Yes
+SA-182,504,55,Capgemini Vietnam,3,Neutral,No
+SA-183,3241,182,FPT Software,2,Negative,No
+SA-184,2701,182,FPT Software,2,Negative,No
+SA-185,2921,182,FPT Software,3,Neutral,Yes
+SA-186,4803,262,LG Electronics Development Vietnam (LGEDV),4,Positive,Yes
+SA-187,7257,403,Sota Tek,5,Positive,Yes
+SA-188,2111,182,FPT Software,4,Positive,Yes
+SA-189,4362,249,KiotViet Corporation,3,Neutral,Yes
+SA-190,1245,169,F88,1,Negative,No
+SA-191,7225,397,SMG Swiss Marketplace Group,2,Negative,No
+SA-192,1034,158,ELCA,4,Positive,Yes
+SA-193,348,50,Bosch Global Software Technologies Company Limited,3,Neutral,Yes
+SA-194,7384,422,The Rep. Office of STYL Solutions Pte. Ltd. In HCMC,1,Negative,Yes
+SA-195,6153,335,Outcubator,2,Negative,No
+SA-196,3803,215,Hitachi Digital Services,2,Negative,No
+SA-197,2621,182,FPT Software,2,Negative,No
+SA-198,10,4,Accenture,4,Positive,Yes
+SA-199,339,50,Bosch Global Software Technologies Company Limited,4,Positive,Yes
+SA-200,5564,306,NashTech,3,Neutral,Yes
+SA-201,5354,306,NashTech,1,Negative,No
+SA-202,567,61,Chotot,2,Negative,Yes
+SA-203,2654,182,FPT Software,3,Neutral,Yes
+SA-204,6537,368,Restaff – House Of Norway,5,Positive,Yes
+SA-205,2497,182,FPT Software,2,Negative,No
+SA-206,2869,182,FPT Software,3,Neutral,Yes
+SA-207,5555,306,NashTech,3,Neutral,Yes
+SA-208,3122,182,FPT Software,2,Negative,No
+SA-209,6962,377,SECUTIX,2,Negative,No
+SA-210,5242,300,NAB Innovation Centre Vietnam,4,Positive,Yes
+SA-211,569,61,Chotot,1,Negative,No
+SA-212,2372,182,FPT Software,2,Negative,No
+SA-213,4681,257,LARION,3,Neutral,No
+SA-214,3181,182,FPT Software,2,Negative,Yes
+SA-215,2221,182,FPT Software,5,Positive,Yes
+SA-216,2814,182,FPT Software,2,Negative,No
+SA-217,5282,301,Nakivo,1,Negative,No
+SA-218,2601,182,FPT Software,2,Negative,No
+SA-219,3739,212,HDWEBSOFT,2,Negative,No
+SA-220,2469,182,FPT Software,3,Neutral,Yes
+SA-221,3064,182,FPT Software,2,Negative,No
+SA-222,2871,182,FPT Software,3,Neutral,No
+SA-223,5710,307,NAVER VIETNAM,5,Positive,Yes
+SA-224,812,138,DatVietVAC,2,Negative,No
+SA-225,3821,215,Hitachi Digital Services,3,Neutral,Yes
+SA-226,947,157,ekino Vietnam,3,Neutral,Yes
+SA-227,5893,326,One Mount Group,5,Positive,Yes
+SA-228,2696,182,FPT Software,2,Negative,Yes
+SA-229,4361,249,KiotViet Corporation,2,Negative,Yes
+SA-230,5599,306,NashTech,3,Neutral,Yes
+SA-231,3279,182,FPT Software,3,Neutral,Yes
+SA-232,4898,271,Luxoft Vietnam,4,Positive,Yes
+SA-233,7465,427,"Toshiba Software Development (Viet Nam) Co, Ltd",3,Neutral,Yes
+SA-234,7930,458,Vitalify Asia,3,Neutral,Yes
+SA-235,6470,362,Rakus Vietnam Company,5,Positive,Yes
+SA-236,1237,169,F88,3,Neutral,Yes
+SA-237,8241,463,VPBank,2,Negative,No
+SA-238,7411,425,Titan DMS,2,Negative,No
+SA-239,6557,368,Restaff – House Of Norway,1,Negative,No
+SA-240,3205,182,FPT Software,2,Negative,No
+SA-241,4205,223,IMT Solutions,2,Negative,Yes
+SA-242,5205,299,M_Service (MoMo),1,Negative,No
+SA-243,387,50,Bosch Global Software Technologies Company Limited,3,Neutral,Yes
+SA-244,4232,230,Innotech Vietnam Corporation,4,Positive,Yes
+SA-245,5872,324,OL Vietnam,2,Negative,No
+SA-246,866,150,Dr.JOY,4,Positive,Yes
+SA-247,3088,182,FPT Software,3,Neutral,Yes
+SA-248,7244,402,Solazu JSC,4,Positive,Yes
+SA-249,3945,215,Hitachi Digital Services,2,Negative,No
+SA-250,3707,208,HARAVAN,5,Positive,Yes
+SA-251,439,50,Bosch Global Software Technologies Company Limited,2,Negative,No
+SA-252,8368,473,YRGLM Việt Nam,3,Neutral,Yes
+SA-253,3725,210,HCL Vietnam Company Limited,2,Negative,No
+SA-254,4458,253,KMS Technology,4,Positive,Yes
+SA-255,7299,415,Techbase Vietnam,2,Negative,No
+SA-256,2095,182,FPT Software,3,Neutral,Yes
+SA-257,1913,182,FPT Software,4,Positive,Yes
+SA-258,2702,182,FPT Software,3,Neutral,No
+SA-259,392,50,Bosch Global Software Technologies Company Limited,3,Neutral,No
+SA-260,3975,215,Hitachi Digital Services,2,Negative,No
+SA-261,6795,372,Samsung Electronics HCMC CE Complex,5,Positive,Yes
+SA-262,334,50,Bosch Global Software Technologies Company Limited,3,Neutral,Yes
+SA-263,4272,236,IT Consultis,1,Negative,No
+SA-264,3839,215,Hitachi Digital Services,1,Negative,No
+SA-265,822,140,Deliveree On-Demand Logistics,1,Negative,No
+SA-266,906,153,East Agile,2,Negative,No
+SA-267,308,50,Bosch Global Software Technologies Company Limited,3,Neutral,Yes
+SA-268,1460,182,FPT Software,2,Negative,No
+SA-269,8094,460,VNG Corporation,4,Positive,Yes
+SA-270,1229,169,F88,3,Neutral,Yes
+SA-271,6464,362,Rakus Vietnam Company,5,Positive,Yes
+SA-272,7055,396,SmartOSC,5,Positive,Yes
+SA-273,6880,373,SAPO,2,Negative,No
+SA-274,1417,182,FPT Software,3,Neutral,No
+SA-275,8214,462,VNPAY,3,Neutral,Yes
+SA-276,369,50,Bosch Global Software Technologies Company Limited,2,Negative,No
+SA-277,8329,472,YOONG,5,Positive,Yes
+SA-278,4779,262,LG Electronics Development Vietnam (LGEDV),5,Positive,Yes
+SA-279,5340,306,NashTech,3,Neutral,Yes
+SA-280,7005,390,Simpson Strong-Tie Vietnam,1,Negative,No
+SA-281,7490,430,Travala.com,5,Positive,Yes
+SA-282,1769,182,FPT Software,5,Positive,Yes
+SA-283,8187,460,VNG Corporation,4,Positive,Yes
+SA-284,529,55,Capgemini Vietnam,2,Negative,No
+SA-285,7972,460,VNG Corporation,3,Neutral,Yes
+SA-286,2566,182,FPT Software,2,Negative,No
+SA-287,4126,220,Hybrid Technologies,3,Neutral,Yes
+SA-288,3786,215,Hitachi Digital Services,3,Neutral,Yes
+SA-289,5193,299,M_Service (MoMo),2,Negative,No
+SA-290,772,129,Creative Force,5,Positive,Yes
+SA-291,6066,333,Orient Software Development Corp.,5,Positive,Yes
+SA-292,323,50,Bosch Global Software Technologies Company Limited,2,Negative,No
+SA-293,5663,307,NAVER VIETNAM,5,Positive,Yes
+SA-294,467,50,Bosch Global Software Technologies Company Limited,3,Neutral,No
+SA-295,7913,458,Vitalify Asia,2,Negative,No
+SA-296,1037,158,ELCA,3,Neutral,Yes
+SA-297,3024,182,FPT Software,2,Negative,No
+SA-298,3846,215,Hitachi Digital Services,2,Negative,No
+SA-299,1121,160,Employment Hero,5,Positive,Yes
+SA-300,708,129,Creative Force,5,Positive,Yes
