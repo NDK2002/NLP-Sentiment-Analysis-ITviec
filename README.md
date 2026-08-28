@@ -111,8 +111,9 @@ flowchart TD
 Do_An_Sentiment_Analysis/
 ├── data/
 │   ├── raw/                 # Dữ liệu gốc (Reviews.xlsx, Overview_Companies.xlsx, ...)
-│   ├── processed/           # Dữ liệu sau khi làm sạch và gán nhãn
-│   └── dictionaries/        # Từ điển tiếng Việt (teencode, stopwords, emoji, ...)
+│   ├── processed/           # Dữ liệu sạch (reviews_cleaned.xlsx, reviews_cleaned.csv)
+│   ├── dictionaries/        # Từ điển tiếng Việt (teencode, stopwords, emoji, lexicon)
+│   └── annotation/          # Dữ liệu phục vụ kiểm định/audit chất lượng nhãn thủ công
 ├── notebooks/
 │   ├── 01_data_exploration_eda.ipynb            # Khám phá & phân tích phân bố dữ liệu (EDA)
 │   ├── 02_text_preprocessing.ipynb              # Tiền xử lý & chuẩn hóa tiếng Việt
@@ -121,17 +122,22 @@ Do_An_Sentiment_Analysis/
 │   └── 05_company_sentiment_insights.ipynb      # Phân tích cảm xúc theo công ty & WordCloud
 ├── src/
 │   ├── __init__.py
-│   ├── preprocessing.py     # Pipeline làm sạch văn bản, chuẩn hóa tiếng Việt
-│   ├── features.py          # Vector hóa văn bản (TF-IDF, BoW, Lexicon features)
-│   ├── models.py            # Huấn luyện, đánh giá & so sánh mô hình phân loại
+│   ├── preprocessing.py     # Pipeline làm sạch văn bản, chuẩn hóa tiếng Việt (TV1)
+│   ├── features.py          # Trích xuất đặc trưng TF-IDF N-gram, SMOTE, chia tập (TV2)
+│   ├── models.py            # Huấn luyện, đánh giá & so sánh mô hình phân loại (TV3)
 │   └── utils.py             # Hàm tiện ích (vẽ WordCloud, đọc dữ liệu)
-├── models/                  # Lưu trữ checkpoint và mô hình (.joblib, .pkl)
+├── models/                  # Lưu trữ checkpoint và vectorizer (.joblib, manifest.json)
+├── tests/                   # Bộ kiểm thử tự động (Unit Tests)
+├── scripts/                 # Các script bổ trợ sinh mẫu và tiện ích
 ├── reports/
-│   ├── figures/             # Biểu đồ phân tích, Confusion Matrix, WordCloud cảm xúc
+│   ├── figures/             # 9 biểu đồ EDA trực quan chất lượng cao (300 DPI)
+│   ├── overview_for_team.md # Tài liệu tóm tắt logic dự án dễ hiểu cho cả nhóm
+│   ├── eda_feature_engineering.md # Báo cáo chi tiết EDA & Phương pháp trích xuất đặc trưng
 │   ├── final_report_outline.md # Đề cương chi tiết báo cáo đồ án
 │   ├── project_plan_and_work_assignment.md # Bảng phân công & timeline nhóm 4 người
 │   └── member_plans/        # File kế hoạch hành động chi tiết riêng của 4 thành viên
 ├── requirements.txt         # Danh sách thư viện Python cần thiết
+├── requirements.lock        # Khóa phiên bản môi trường cố định
 └── README.md                # Hướng dẫn tổng quan
 ```
 
@@ -147,11 +153,8 @@ cd NLP-Sentiment-Analysis-ITviec
 
 ### Bước 2: Cài đặt môi trường & Thư viện
 ```bash
-uv venv .venv --python 3.11
-uv pip sync requirements.lock --python .venv/bin/python
+pip install -r requirements.txt
 ```
-
-`requirements.lock` khóa chính xác môi trường dùng để sinh và đọc các artifact `joblib`. Nếu chỉ phát triển và không cần tái lập artifact, có thể dùng `pip install -r requirements.txt`.
 
 ### Bước 3: Tạo nhánh (Branch) riêng cho từng thành viên
 Mỗi thành viên tạo và làm việc trên một nhánh riêng biệt:
