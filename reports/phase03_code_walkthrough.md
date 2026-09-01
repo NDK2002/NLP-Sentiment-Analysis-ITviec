@@ -4,7 +4,7 @@ Tài liệu này giải thích từng đoạn code đã triển khai cho Phase03
 
 1. `src/models.py` — thư viện logic dùng chung (class `SentimentModelTrainer`).
 2. `notebooks/03_sentiment_modeling_ml.ipynb` — notebook chính, **đã chạy thật** trên artifact của TV2.
-3. `notebooks/04_sentiment_modeling_deeplearning.ipynb` — benchmark ViSoBERT, **đã viết code nhưng chưa chạy** (chờ GPU/Runpod).
+3. `notebooks/04_sentiment_modeling_deeplearning.ipynb` — benchmark ViSoBERT, **đã chạy thật trên GPU (Runpod)**, có số liệu thật.
 
 Mục tiêu của tài liệu: giúp người đọc (kể cả không viết ra đoạn code này) hiểu **code làm gì** và quan trọng hơn là **tại sao lại viết như vậy**, đặc biệt ở những chỗ không hiển nhiên.
 
@@ -20,7 +20,7 @@ flowchart LR
     D --> E["3.3 Stacking (NB+LR+SVM đã tune)\ncross_val_score đo điểm"]
     E --> F["3.4 Chọn model tốt nhất theo CV\n→ fit 1 lần → predict X_test (1 LẦN DUY NHẤT)"]
     F --> G["3.5 Lưu biểu đồ + models/best_sentiment_model.joblib"]
-    A -. test_indices .-> H["notebook 04 · benchmark ViSoBERT\n(chưa chạy, chờ GPU)"]
+    A -. test_indices .-> H["notebook 04 · benchmark ViSoBERT\n(đã chạy trên GPU Runpod)"]
     G -. so sánh .-> H
 ```
 
@@ -443,13 +443,20 @@ Hai dòng cuối cùng: vẽ bar chart so sánh 5 ứng viên (dùng `comparison
 
 ---
 
-## 3. `notebooks/04_sentiment_modeling_deeplearning.ipynb` (đã viết code, **chưa chạy**)
+## 3. `notebooks/04_sentiment_modeling_deeplearning.ipynb` (đã viết code và **đã chạy thật trên GPU**)
 
-Notebook này benchmark mô hình pretrained `5CD-AI/Vietnamese-Sentiment-visobert` theo kiểu **zero-shot** (dùng thẳng model đã huấn luyện sẵn, không fine-tune thêm) trên đúng tập final test của notebook 03, để có con số so sánh trực tiếp. Máy dev hiện tại **không cài `torch`/`transformers` và không có GPU**, nên toàn bộ code dưới đây đã viết đầy đủ nhưng **chưa được thực thi** — cần chạy trên môi trường có GPU (kế hoạch của bạn là Runpod) rồi điền số liệu thật vào `reports/modeling_hyperparameter_tuning.md`.
+Notebook này benchmark mô hình pretrained `5CD-AI/Vietnamese-Sentiment-visobert` theo kiểu **zero-shot** (dùng thẳng model đã huấn luyện sẵn, không fine-tune thêm) trên đúng tập final test của notebook 03, để có con số so sánh trực tiếp. Máy dev không có GPU nên notebook được viết sẵn ở đây rồi chạy thật trên một pod GPU thuê ngoài (Runpod); số liệu thật đã được đưa vào `reports/modeling_hyperparameter_tuning.md`.
+
+**Ghi chú môi trường chạy thật (đáng lưu ý vì mất nhiều công debug):** lúc chạy trên Runpod gặp liên tiếp 3 lớp lỗi môi trường không liên quan đến logic notebook:
+1. `torch` cài mặc định qua `pip install torch` kéo về bản build cho CUDA mới hơn driver GPU của pod hỗ trợ (`+cu130` trong khi driver chỉ hỗ trợ tới CUDA 12.8) → phải cài lại chỉ định đúng `--index-url .../whl/cu124` (hoặc `cu128`).
+2. `requirements.lock` của dự án đang khóa `transformers==5.16.1` — một bản có lỗi thật sự trong code load tokenizer Unigram (`Tokenizer(Unigram(vocab=self._vocab, ...))` nhận nhầm `vocab` dạng `dict` thay vì `list[(token, score)]`) khi load đúng checkpoint ViSoBERT (dù `xlm-roberta-base` của chính HuggingFace vẫn load được bình thường). Đã hạ về `transformers==4.46.3` (khớp `tokenizers==0.20.3`, `huggingface-hub==0.36.2`) — bản này chạy đúng, đã verify.
+3. `.venv` của project không tự động xuất hiện trong danh sách kernel Jupyter — phải cài `ipykernel` vào đúng venv rồi `python -m ipykernel install --user ...` để đăng ký kernel thủ công.
+
+Ba lỗi này thuần túy là vấn đề môi trường/hạ tầng, không phải lỗi trong code notebook hay `src/models.py`.
 
 ### Cell cảnh báo môi trường (markdown)
 
-Ghi rõ yêu cầu môi trường và tình trạng chưa chạy, để không ai nhầm những gì viết trong notebook 04 là kết quả đã được xác nhận thật.
+Ghi rõ yêu cầu môi trường (đã lỗi thời sau khi notebook được chạy thật — nội dung cảnh báo "chưa thực thi" trong cell này nay chỉ còn giá trị lịch sử, số liệu thật đã có trong báo cáo chính thức).
 
 ### Cell nạp đúng tập final test đã khóa
 
@@ -531,6 +538,19 @@ print(classification_report(y_test, y_pred_visobert, digits=4))
 
 Dùng đúng công thức tính điểm (`f1_score(..., average='macro')`, `classification_report`) giống hệt cách notebook 03 đánh giá model ML ở cell 9 — để 2 bảng kết quả có thể ghép thẳng vào chung 1 bảng so sánh trong báo cáo cuối, không cần quy đổi hay giải thích thêm về cách tính khác nhau.
 
+**Kết quả thật (chạy trên GPU Runpod):**
+
+```
+ViSoBERT (zero-shot) - Accuracy: 0.6536; Macro F1: 0.4036
+              precision    recall  f1-score   support
+
+    Negative     0.1882    0.7544    0.3012       114
+     Neutral     0.3902    0.0488    0.0867       328
+    Positive     0.8422    0.8042    0.8228      1241
+```
+
+Nhãn thô model trả về đúng là `'POS'` (khớp sẵn với `RAW_LABEL_TO_SENTIMENT`, không phát sinh nhãn lạ nào, không cần chỉnh mapping). So với Stacking (Accuracy 0,7766, Macro F1 0,5475), ViSoBERT zero-shot thấp hơn tổng thể nhưng có Recall Negative cao vượt trội (75,44% so với 26,32%) — đổi lại gần như không nhận ra được lớp Neutral (Recall 4,88%). Phân tích đầy đủ ở `reports/modeling_hyperparameter_tuning.md` (mục "So sánh với ViSoBERT").
+
 ---
 
 ## 4. Tóm tắt các quyết định thiết kế đáng chú ý
@@ -543,7 +563,7 @@ Dùng đúng công thức tính điểm (`f1_score(..., average='macro')`, `clas
 | `get_stacking_model()` nhận `base_estimators` để tái dùng model đã tune | Đúng yêu cầu "kết hợp 3 mô hình tốt nhất", không lãng phí kết quả tuning |
 | `X_test` chỉ `.predict()` đúng 1 lần, ở cell 9, sau khi đã chọn xong bằng CV | Chống rò rỉ dữ liệu / overfit vào tập test, giữ đúng kỷ luật đánh giá mà TV2 thiết lập |
 | Notebook 04 dùng `clean_basic_text` thay vì `clean_advance_text` | Transformer cần câu tự nhiên, không cần (và không nên) tách từ ghép thủ công trước |
-| Notebook 04 `raise ValueError` khi gặp nhãn lạ thay vì âm thầm map sai | "Fail loud" — chưa chạy được thật nên không đoán bừa cách ánh xạ nhãn |
+| Notebook 04 `raise ValueError` khi gặp nhãn lạ thay vì âm thầm map sai | "Fail loud" — lúc viết chưa chạy được thật nên không đoán bừa cách ánh xạ nhãn (chạy thật sau đó xác nhận nhãn là `'POS'`, đã có sẵn trong mapping) |
 | `tests/test_models.py` dùng dữ liệu synthetic nhỏ, `cv=3`, grid tối giản | Test chạy nhanh (vài giây), không phụ thuộc dữ liệu thật, vẫn kiểm tra đúng logic (tuning trả đủ 4 model, Stacking dùng đúng model đã tune, `save_model` round-trip) |
 
 ---
@@ -552,7 +572,7 @@ Dùng đúng công thức tính điểm (`f1_score(..., average='macro')`, `clas
 
 - Module: `src/models.py`
 - Notebook đã chạy: `notebooks/03_sentiment_modeling_ml.ipynb`
-- Notebook chưa chạy (chờ GPU): `notebooks/04_sentiment_modeling_deeplearning.ipynb`
+- Notebook đã chạy (trên GPU Runpod): `notebooks/04_sentiment_modeling_deeplearning.ipynb`
 - Test tự động: `tests/test_models.py`
 - Báo cáo số liệu chính thức (Mục 3.2–3.3): `reports/modeling_hyperparameter_tuning.md`
 - Biểu đồ: `reports/figures/model_comparison_f1_macro.png`, `reports/figures/best_model_confusion_matrix.png`

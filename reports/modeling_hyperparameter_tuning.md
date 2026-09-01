@@ -23,7 +23,7 @@ Kết hợp 3 mô hình cơ sở tốt nhất — **Naive Bayes, Logistic Regres
 
 ### Mô hình 6: ViSoBERT (notebook 04)
 
-`notebooks/04_sentiment_modeling_deeplearning.ipynb` đã chuẩn bị đầy đủ code benchmark zero-shot cho `5CD-AI/Vietnamese-Sentiment-visobert` trên đúng tập final test đã khóa (dùng `clean_basic_text` — giữ nguyên cấu trúc câu tự nhiên, đúng theo thiết kế tiền xử lý 2 tầng). **Notebook này chưa được thực thi**: môi trường dev không cài `torch`/`transformers` và không có GPU; sẽ chạy trên môi trường GPU (Runpod) theo kế hoạch của nhóm. Số liệu ViSoBERT sẽ được bổ sung vào bảng so sánh bên dưới sau khi chạy.
+`notebooks/04_sentiment_modeling_deeplearning.ipynb` benchmark zero-shot (không fine-tune) checkpoint `5CD-AI/Vietnamese-Sentiment-visobert` trên đúng tập final test đã khóa (dùng `clean_basic_text` — giữ nguyên cấu trúc câu tự nhiên, đúng theo thiết kế tiền xử lý 2 tầng). Đã chạy thật trên GPU (Runpod); kết quả và so sánh với Stacking ở Mục "So sánh với ViSoBERT" bên dưới.
 
 ## 3.3. Xử lý mất cân bằng dữ liệu & Tinh chỉnh siêu tham số
 
@@ -84,11 +84,28 @@ Stacking Ensemble cho CV Macro F1 cao nhất trên train và được chọn là
 
 Macro F1 trên final test (0,5475) thấp hơn ước lượng CV trên train (0,5619), một khoảng chênh hợp lý phản ánh phương sai giữa các fold chứ không phải rò rỉ dữ liệu (final test chỉ được dùng đúng 1 lần, sau khi mô hình đã được khóa bằng CV). Recall lớp Negative (26,32%) vẫn là điểm yếu rõ nhất — đúng như dự đoán từ EDA của TV2 về mất cân bằng dữ liệu nghiêm trọng (Negative chỉ 6,77% mẫu); đây là hạng mục TV4 cần đào sâu ở Error Analysis.
 
+### So sánh với ViSoBERT (Deep Learning, zero-shot benchmark)
+
+`notebooks/04_sentiment_modeling_deeplearning.ipynb` đã chạy trên GPU (Runpod), benchmark checkpoint pretrained `5CD-AI/Vietnamese-Sentiment-visobert` (không fine-tune) trên **đúng cùng 1.683 dòng final test** mà Stacking dùng ở trên — đảm bảo so sánh công bằng.
+
+| Mô hình | Accuracy | Macro F1 |
+|---|---:|---:|
+| **Stacking (NB+LR+SVM, đã tune)** | **0,7766** | **0,5475** |
+| ViSoBERT (zero-shot) | 0,6536 | 0,4036 |
+
+| Lớp | Precision | Recall | F1 | Support |
+|---|---:|---:|---:|---:|
+| Negative | 0,1882 | 0,7544 | 0,3012 | 114 |
+| Neutral | 0,3902 | 0,0488 | 0,0867 | 328 |
+| Positive | 0,8422 | 0,8042 | 0,8228 | 1.241 |
+
+Stacking vẫn vượt trội hơn ViSoBERT zero-shot về tổng thể (Macro F1 cao hơn 0,1439). Tuy nhiên kết quả không đơn thuần là "Stacking thắng tuyệt đối": ViSoBERT zero-shot có **Recall lớp Negative cao hơn hẳn** (75,44% so với 26,32% của Stacking) — mô hình pretrained tổng quát nhạy hơn nhiều với tín hiệu tiêu cực, đổi lại Precision rất thấp (18,82%, tức đoán Negative tràn lan, sai nhiều). Điểm yếu chí mạng của ViSoBERT là lớp Neutral: Recall chỉ 4,88% — mô hình sentiment 3-lớp tổng quát này gần như không phân biệt được ranh giới "trung tính" đặc thù của cách gán nhãn yếu theo Rating của ITviec (3 sao), vì nó được huấn luyện trên phân phối/định nghĩa Neutral khác với bài toán này. Đây là bằng chứng cụ thể cho việc **mô hình ML được huấn luyện đúng trên phân phối dữ liệu mục tiêu (dù đơn giản hơn) vẫn có thể vượt trội hơn một pretrained model tổng quát chưa fine-tune** — gợi ý hướng phát triển tiếp theo là fine-tune ViSoBERT trên chính tập train này thay vì chỉ dùng zero-shot.
+
 ## Tệp bàn giao
 
 - Module: `src/models.py` (`SentimentModelTrainer.tune_hyperparameters`, `get_stacking_model`, `plot_model_comparison`).
 - Notebook hoàn chỉnh: `notebooks/03_sentiment_modeling_ml.ipynb` (đã thực thi, có output thật).
-- Notebook chuẩn bị sẵn, chưa thực thi (chờ GPU): `notebooks/04_sentiment_modeling_deeplearning.ipynb`.
+- Notebook benchmark ViSoBERT: `notebooks/04_sentiment_modeling_deeplearning.ipynb` (đã chạy trên GPU Runpod, số liệu thật ở trên).
 - Mô hình tốt nhất: `models/best_sentiment_model.joblib` (Stacking NB+LR+SVM).
 - Biểu đồ: `reports/figures/model_comparison_f1_macro.png`, `reports/figures/best_model_confusion_matrix.png`.
 - Test tự động: `tests/test_models.py`.
