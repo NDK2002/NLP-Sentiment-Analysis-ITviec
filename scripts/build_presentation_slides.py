@@ -919,4 +919,4 @@ simple_text(s15, Inches(7.75)+Inches(0.3), top+Inches(4.15), Inches(4.25), Inche
 # =====================================================================
 os.makedirs(OUT_PATH.parent, exist_ok=True)
 prs.save(str(OUT_PATH))
-print("SAVED:", OUT_PATH, "| slides:", len(prs.slides))
+print("SAVED:", OUT_PATH.name, "| slides:", len(prs.slides))
